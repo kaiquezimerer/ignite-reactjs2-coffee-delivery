@@ -1,10 +1,5 @@
-
 function App() {
-  return (
-    <p>
-      Coffee Delivery
-    </p>
-  );
+  return <p>Coffee Delivery</p>
 }
 
 export default App

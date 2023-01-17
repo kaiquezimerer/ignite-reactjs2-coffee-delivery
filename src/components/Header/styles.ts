@@ -18,3 +18,14 @@ export const Navigation = styled.nav`
     gap: 0.75rem;
   }
 `
+
+export const LocationLabel = styled.p`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.875rem;
+  color: ${(props) => props.theme['purple-800']};
+  background-color: ${(props) => props.theme['purple-100']};
+  padding: 0.625rem 0.5rem;
+  border-radius: 6px;
+`

@@ -1,4 +1,8 @@
-import { HeaderContainer, Container, Navigation } from './styles'
+import { MapPin } from 'phosphor-react'
+
+import { HeaderContainer, Container, Navigation, LocationLabel } from './styles'
+
+import { CartButton } from '../CartButton'
 
 import CoffeeDeliveryLogo from '../../assets/images/coffee-delivery-logo.svg'
 
@@ -15,10 +19,14 @@ export function Header() {
         </h1>
         <Navigation>
           <ul>
-            <li>Porto Alegre, RS</li>
-            {/* TODO: Criar IconButton p/ Botão de carrinho e substituir aqui */}
             <li>
-              <button>Carrinho</button>
+              <LocationLabel>
+                <MapPin size={22} weight="fill" />
+                Porto Alegre, RS
+              </LocationLabel>
+            </li>
+            <li>
+              <CartButton count={0} />
             </li>
           </ul>
         </Navigation>

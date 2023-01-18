@@ -2,6 +2,13 @@ import styled from 'styled-components'
 
 import HeroBackground from '../../assets/images/hero-background.svg'
 
+export const HomeContainer = styled.div`
+  h2 {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 800;
+  }
+`
+
 export const HeroSection = styled.section`
   background-image: url(${HeroBackground});
   background-repeat: no-repeat;
@@ -15,9 +22,7 @@ export const HeroSection = styled.section`
   }
 
   h2 {
-    font-family: 'Baloo 2', sans-serif;
     font-size: 3rem;
-    font-weight: 800;
     margin-bottom: 1rem;
   }
 
@@ -67,4 +72,19 @@ export const ItemIcon = styled.div`
   justify-content: center;
   border-radius: 50%;
   color: ${(props) => props.theme['gray-100']};
+`
+
+export const CoffeeListSection = styled.section`
+  padding: 2rem 0;
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
 `

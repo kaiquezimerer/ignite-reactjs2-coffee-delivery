@@ -1,10 +1,17 @@
 import { ShoppingCart, Timer, Package, Coffee } from 'phosphor-react'
+import { ItemCard } from './components/ItemCard'
 
-import { HeroSection, ItemIcon } from './styles'
+import {
+  HeroSection,
+  ItemIcon,
+  CoffeeListSection,
+  HomeContainer,
+} from './styles'
 
 export function Home() {
   return (
-    <div>
+    <HomeContainer>
+      {/* Hero */}
       <HeroSection>
         <h2>Encontre o café perfeito para qualquer hora do dia</h2>
         <h3>
@@ -38,6 +45,42 @@ export function Home() {
           </li>
         </ul>
       </HeroSection>
-    </div>
+      {/* Lista de produtos (Cafés) */}
+      <CoffeeListSection>
+        <h2>Nossos cafés</h2>
+        <ol>
+          <li>
+            <ItemCard />
+          </li>
+          <li>
+            <ItemCard />
+          </li>
+          <li>
+            <ItemCard />
+          </li>
+          <li>
+            <ItemCard />
+          </li>
+          <li>
+            <ItemCard />
+          </li>
+          <li>
+            <ItemCard />
+          </li>
+          <li>
+            <ItemCard />
+          </li>
+          <li>
+            <ItemCard />
+          </li>
+          <li>
+            <ItemCard />
+          </li>
+          <li>
+            <ItemCard />
+          </li>
+        </ol>
+      </CoffeeListSection>
+    </HomeContainer>
   )
 }

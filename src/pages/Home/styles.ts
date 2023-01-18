@@ -17,7 +17,7 @@ export const HeroSection = styled.section`
 
   h2,
   h3 {
-    width: 588px;
+    max-width: 588px;
     line-height: 130%;
   }
 
@@ -60,6 +60,22 @@ export const HeroSection = styled.section`
 
     &:nth-child(4) > div {
       background-color: ${(props) => props.theme['purple-500']};
+    }
+  }
+
+  /* Viewport <= 1030px */
+  @media screen and (max-width: 1030px) {
+    background: none;
+  }
+
+  @media screen and (max-width: 645px) {
+    padding: 3rem 0;
+    h2 {
+      font-size: 2rem;
+    }
+    ul {
+      font-size: 1rem;
+      column-count: 1;
     }
   }
 `

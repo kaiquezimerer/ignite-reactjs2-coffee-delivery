@@ -4,7 +4,6 @@ import { Minus, Plus, ShoppingCartSimple } from 'phosphor-react'
 import { ItemCardContainer, SelectQuantity, Button } from './styles'
 
 import { Product } from '../..'
-import CoffeExpressoImg from '../../../../assets/images/coffee-expresso.png'
 
 export function formatPrice(price: number): string {
   return price.toLocaleString('pt-BR', {

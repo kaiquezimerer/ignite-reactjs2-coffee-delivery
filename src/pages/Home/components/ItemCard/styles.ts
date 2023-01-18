@@ -25,7 +25,7 @@ export const ItemCardContainer = styled.div`
     color: ${(props) => props.theme['yellow-800']};
     font-size: 0.7rem;
     text-transform: uppercase;
-    margin-bottom: 0.4rem;
+    margin: 0 0.1rem 0.4rem;
   }
 
   h3 {

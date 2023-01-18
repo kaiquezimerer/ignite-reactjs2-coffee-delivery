@@ -25,7 +25,7 @@ export function Header() {
             <li>
               <LocationLabel>
                 <MapPin size={22} weight="fill" />
-                São Paulo, SP
+                <span>São Paulo,</span> SP
               </LocationLabel>
             </li>
             <li>

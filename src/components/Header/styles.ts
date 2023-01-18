@@ -28,4 +28,10 @@ export const LocationLabel = styled.p`
   background-color: ${(props) => props.theme['purple-100']};
   padding: 0.625rem 0.5rem;
   border-radius: 6px;
+
+  @media screen and (max-width: 368px) {
+    & > span {
+      display: none;
+    }
+  }
 `

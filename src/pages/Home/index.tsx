@@ -1,4 +1,5 @@
 import { ShoppingCart, Timer, Package, Coffee } from 'phosphor-react'
+import { useEffect, useState } from 'react'
 import { ItemCard } from './components/ItemCard'
 
 import {
@@ -8,7 +9,32 @@ import {
   HomeContainer,
 } from './styles'
 
+export interface Product {
+  id: string
+  name: string
+  image: string
+  description: string
+  types: string[]
+  price: number
+}
+
 export function Home() {
+  const [products, setProducts] = useState<Product[]>([])
+
+  function loadProductsList() {
+    fetch('coffee.json')
+      .then((response) => {
+        return response.json()
+      })
+      .then((data: Product[]) => {
+        setProducts(data)
+      })
+  }
+
+  useEffect(() => {
+    loadProductsList()
+  }, [])
+
   return (
     <HomeContainer>
       {/* Hero */}
@@ -48,38 +74,15 @@ export function Home() {
       {/* Lista de produtos (Cafés) */}
       <CoffeeListSection>
         <h2>Nossos cafés</h2>
-        <ol>
-          <li>
-            <ItemCard />
-          </li>
-          <li>
-            <ItemCard />
-          </li>
-          <li>
-            <ItemCard />
-          </li>
-          <li>
-            <ItemCard />
-          </li>
-          <li>
-            <ItemCard />
-          </li>
-          <li>
-            <ItemCard />
-          </li>
-          <li>
-            <ItemCard />
-          </li>
-          <li>
-            <ItemCard />
-          </li>
-          <li>
-            <ItemCard />
-          </li>
-          <li>
-            <ItemCard />
-          </li>
-        </ol>
+        {!!products.length && (
+          <ol>
+            {products.map((product) => (
+              <li key={product.id}>
+                <ItemCard product={product} />
+              </li>
+            ))}
+          </ol>
+        )}
       </CoffeeListSection>
     </HomeContainer>
   )

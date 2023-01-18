@@ -3,17 +3,20 @@ import { Minus, Plus, ShoppingCartSimple } from 'phosphor-react'
 
 import { ItemCardContainer, SelectQuantity, Button } from './styles'
 
+import { Product } from '../..'
 import CoffeExpressoImg from '../../../../assets/images/coffee-expresso.png'
 
-const DEFAULT_PRICE = 9.9
-
-function formatPrice(price: number): string {
+export function formatPrice(price: number): string {
   return price.toLocaleString('pt-BR', {
     minimumFractionDigits: 2,
   })
 }
 
-export function ItemCard() {
+interface ItemCardProps {
+  product: Product
+}
+
+export function ItemCard({ product }: ItemCardProps) {
   const [count, setCount] = useState(1)
 
   function handleIncrementCount() {
@@ -27,17 +30,19 @@ export function ItemCard() {
   return (
     <ItemCardContainer>
       <img
-        src={CoffeExpressoImg}
+        src={`images/${product.image}`}
         width="120"
         height="120"
-        alt="Café Expresso"
+        alt={product.name}
       />
-      <h4>Tradicional</h4>
-      <h3>Expresso Tradicional</h3>
-      <p>O tradicional café feito com água quente e grãos moídos</p>
+      {product.types.map((type) => (
+        <h4 key={type}>{type}</h4>
+      ))}
+      <h3>{product.name}</h3>
+      <p>{product.description}</p>
       <div>
         <p>
-          R$ <span>{formatPrice(DEFAULT_PRICE)}</span>
+          R$ <span>{formatPrice(product.price)}</span>
         </p>
         <SelectQuantity>
           <button

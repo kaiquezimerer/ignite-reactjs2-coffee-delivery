@@ -76,6 +76,11 @@ export const SelectQuantity = styled.div`
     &:hover {
       color: ${(props) => props.theme['purple-800']};
     }
+
+    &:disabled {
+      opacity: 0.8;
+      cursor: not-allowed;
+    }
   }
 `
 

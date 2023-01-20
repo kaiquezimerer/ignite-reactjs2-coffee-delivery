@@ -1,4 +1,7 @@
-import { CheckoutContainer, Card } from './styles'
+import { CheckoutContainer, Card, CardHeader } from './styles'
+
+import AddressIcon from '../../assets/images/address-icon.svg'
+import PaymentIcon from '../../assets/images/payment-icon.svg'
 
 export function Checkout() {
   return (
@@ -6,10 +9,10 @@ export function Checkout() {
       <div>
         <h2>Complete seu pedido</h2>
         <Card>
-          <div>
+          <CardHeader icon={AddressIcon}>
             <h3>Endereço de Entrega</h3>
             <p>Informe o endereço onde deseja receber seu pedido</p>
-          </div>
+          </CardHeader>
           <form>
             <input type="text" name="cep" placeholder="CEP" />
             <input type="text" name="rua" placeholder="Rua" />
@@ -25,12 +28,12 @@ export function Checkout() {
           </form>
         </Card>
         <Card>
-          <div>
+          <CardHeader icon={PaymentIcon}>
             <h3>Pagamento</h3>
             <p>
               O pagamento é feito na entrega. Escolha a forma que deseja pagar
             </p>
-          </div>
+          </CardHeader>
           <div>Cartão de crédito</div>
           <div>Cartão de débito</div>
           <div>Cartão de dinheiro</div>

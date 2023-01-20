@@ -68,11 +68,14 @@ export const HeroSection = styled.section`
     background: none;
   }
 
+  /* Viewport <= 645px */
   @media screen and (max-width: 645px) {
     padding: 3rem 0;
+
     h2 {
       font-size: 2rem;
     }
+
     ul {
       font-size: 1rem;
       column-count: 1;

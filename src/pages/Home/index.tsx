@@ -1,5 +1,6 @@
 import { ShoppingCart, Timer, Package, Coffee } from 'phosphor-react'
 import { useEffect, useState } from 'react'
+
 import { ItemCard } from './components/ItemCard'
 
 import {
@@ -21,7 +22,7 @@ export interface Product {
 export function Home() {
   const [products, setProducts] = useState<Product[]>([])
 
-  function loadProductsList() {
+  function loadProductList() {
     fetch('coffee.json')
       .then((response) => {
         return response.json()
@@ -32,7 +33,7 @@ export function Home() {
   }
 
   useEffect(() => {
-    loadProductsList()
+    loadProductList()
   }, [])
 
   return (

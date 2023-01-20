@@ -5,14 +5,14 @@ import { ItemCardContainer, SelectQuantity, Button } from './styles'
 
 import { Product } from '../..'
 
+interface ItemCardProps {
+  product: Product
+}
+
 export function formatPrice(price: number): string {
   return price.toLocaleString('pt-BR', {
     minimumFractionDigits: 2,
   })
-}
-
-interface ItemCardProps {
-  product: Product
 }
 
 export function ItemCard({ product }: ItemCardProps) {

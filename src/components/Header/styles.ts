@@ -29,6 +29,7 @@ export const LocationLabel = styled.p`
   padding: 0.625rem 0.5rem;
   border-radius: 6px;
 
+  /* Viewport <= 368px */
   @media screen and (max-width: 368px) {
     & > span {
       display: none;

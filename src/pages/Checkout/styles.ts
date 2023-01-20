@@ -57,3 +57,40 @@ export const CardHeader = styled.header<CardHeaderProps>`
   background-repeat: no-repeat;
   background-position: left top;
 `
+
+export const PaymentOptionContainer = styled.div`
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 2rem;
+`
+
+interface PaymentOptionButtonProps {
+  icon: string | null
+  isActive?: boolean
+}
+
+export const PaymentOptionButton = styled.button<PaymentOptionButtonProps>`
+  width: 178px;
+  border: ${(props) =>
+    props.isActive
+      ? `1px solid ${props.theme['purple-500']}`
+      : `1px solid ${props.theme['gray-400']}`};
+  border-radius: 5px;
+  padding: 1rem 1rem 1rem 1.75rem;
+  background-color: ${(props) =>
+    props.isActive ? props.theme['purple-100'] : props.theme['gray-400']};
+  color: ${(props) => props.theme['brown-300']};
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  background-image: url(${(props) => props.icon});
+  background-repeat: no-repeat;
+  background-position: 1rem center;
+  cursor: pointer;
+  transition: 200ms ease;
+
+  &:hover {
+    background-color: ${(props) =>
+      props.isActive ? props.theme['purple-100'] : props.theme['gray-500']};
+    color: ${(props) => props.theme['brown-300']};
+  }
+`

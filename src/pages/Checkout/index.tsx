@@ -1,11 +1,41 @@
-import { CheckoutContainer, Card, CardHeader } from './styles'
+import { useState } from 'react'
+
+import {
+  CheckoutContainer,
+  Card,
+  CardHeader,
+  PaymentOptionButton,
+  PaymentOptionContainer,
+} from './styles'
 
 import { Input } from '../../components/Input'
 
 import AddressIcon from '../../assets/images/address-icon.svg'
 import PaymentIcon from '../../assets/images/payment-icon.svg'
 
+import CreditIcon from '../../assets/images/credit-icon.svg'
+import DebitIcon from '../../assets/images/debit-icon.svg'
+import CashIcon from '../../assets/images/cash-icon.svg'
+
+enum PaymentMethod {
+  'CREDIT_CARD' = 1,
+  'DEBIT_CARD'=  2,
+  'CASH' = 3
+}
+
+const PAYMENT_METHOD = Object.freeze({
+  'CREDIT_CARD': 1,
+  'DEBIT_CARD': 2,
+  'CASH': 3
+})
+
 export function Checkout() {
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(null)
+
+  function handleChangePaymentMethod(paymentMethod: PaymentMethod) {
+    setPaymentMethod(paymentMethod)
+  }
+
   return (
     <CheckoutContainer>
       <div>
@@ -18,7 +48,6 @@ export function Checkout() {
           <form>
             <Input
               required
-              autoFocus
               width="200px"
               type="text"
               name="cep"
@@ -74,9 +103,35 @@ export function Checkout() {
               O pagamento é feito na entrega. Escolha a forma que deseja pagar
             </p>
           </CardHeader>
-          <div>Cartão de crédito</div>
-          <div>Cartão de débito</div>
-          <div>Cartão de dinheiro</div>
+          <PaymentOptionContainer>
+            <PaymentOptionButton 
+              icon={CreditIcon}
+              isActive={paymentMethod === PAYMENT_METHOD.CREDIT_CARD} 
+              onClick={() => {
+                handleChangePaymentMethod(PAYMENT_METHOD.CREDIT_CARD)
+              }} 
+            >
+              Cartão de crédito
+            </PaymentOptionButton>
+            <PaymentOptionButton 
+              icon={DebitIcon}
+              isActive={paymentMethod === PAYMENT_METHOD.DEBIT_CARD} 
+              onClick={() => {
+                handleChangePaymentMethod(PAYMENT_METHOD.DEBIT_CARD)
+              }} 
+            >
+              Cartão de débito
+            </PaymentOptionButton>
+            <PaymentOptionButton 
+              icon={CashIcon}
+              isActive={paymentMethod === PAYMENT_METHOD.CASH} 
+              onClick={() => {
+                handleChangePaymentMethod(PAYMENT_METHOD.CASH)
+              }} 
+            >
+              Cartão de dinheiro
+            </PaymentOptionButton>
+          </PaymentOptionContainer>
         </Card>
       </div>
       <div>

@@ -39,6 +39,12 @@ export const Card = styled.div`
   margin: 0.75rem 0;
   border-radius: 6px;
   background: ${(props) => props.theme['gray-200']};
+
+  & > form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 0.75rem;
+  }
 `
 
 interface CardHeaderProps {

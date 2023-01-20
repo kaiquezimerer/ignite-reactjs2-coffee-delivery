@@ -1,5 +1,7 @@
 import { CheckoutContainer, Card, CardHeader } from './styles'
 
+import { Input } from '../../components/Input'
+
 import AddressIcon from '../../assets/images/address-icon.svg'
 import PaymentIcon from '../../assets/images/payment-icon.svg'
 
@@ -14,17 +16,55 @@ export function Checkout() {
             <p>Informe o endereço onde deseja receber seu pedido</p>
           </CardHeader>
           <form>
-            <input type="text" name="cep" placeholder="CEP" />
-            <input type="text" name="rua" placeholder="Rua" />
-            <input type="text" name="numero" placeholder="Número" />
-            <input
+            <Input
+              required
+              autoFocus
+              width="200px"
               type="text"
-              name="complemento"
-              placeholder="Complemento (Opcional)"
+              name="cep"
+              mask="99999-999"
+              placeholder="CEP"
             />
-            <input type="text" name="bairro" placeholder="Bairro" />
-            <input type="text" name="cidade" placeholder="Cidade" />
-            <input type="text" name="uf" placeholder="UF" />
+            <Input required type="text" name="rua" placeholder="Rua" />
+            <Input
+              required
+              width="200px"
+              type="number"
+              min="1"
+              name="numero"
+              placeholder="Número"
+            />
+            <Input
+              type="text"
+              width="348px"
+              name="complemento"
+              maxLength={20}
+              placeholder="Complemento"
+            />
+            <Input
+              required
+              width="200px"
+              type="text"
+              name="bairro"
+              maxLength={50}
+              placeholder="Bairro"
+            />
+            <Input
+              required
+              width="276px"
+              type="text"
+              name="cidade"
+              maxLength={50}
+              placeholder="Cidade"
+            />
+            <Input
+              required
+              width="60px"
+              type="text"
+              name="uf"
+              maxLength={2}
+              placeholder="UF"
+            />
           </form>
         </Card>
         <Card>

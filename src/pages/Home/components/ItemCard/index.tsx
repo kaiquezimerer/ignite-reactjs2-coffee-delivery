@@ -1,9 +1,9 @@
-import { useState } from 'react'
 import { Minus, Plus, ShoppingCartSimple } from 'phosphor-react'
 
 import { ItemCardContainer, SelectQuantity, Button } from './styles'
 
 import { Product } from '../..'
+import { useCount } from '../../../../hooks/useCount'
 
 interface ItemCardProps {
   product: Product
@@ -16,15 +16,7 @@ export function formatPrice(price: number): string {
 }
 
 export function ItemCard({ product }: ItemCardProps) {
-  const [count, setCount] = useState(1)
-
-  function handleIncrementCount() {
-    setCount((state) => state + 1)
-  }
-
-  function handleDecrementCount() {
-    setCount((state) => state - 1)
-  }
+  const [count, handleIncrementCount, handleDecrementCount] = useCount(1)
 
   return (
     <ItemCardContainer>
@@ -44,21 +36,23 @@ export function ItemCard({ product }: ItemCardProps) {
           R$ <span>{formatPrice(product.price)}</span>
         </p>
         <SelectQuantity>
-          <button
-            type="button"
-            disabled={count === 1}
-            onClick={handleDecrementCount}
-          >
-            <Minus size={15} />
-          </button>
-          {count}
-          <button
-            type="button"
-            disabled={count === 99}
-            onClick={handleIncrementCount}
-          >
-            <Plus size={15} />
-          </button>
+          <>
+            <button
+              type="button"
+              disabled={count === 1}
+              onClick={handleDecrementCount}
+            >
+              <Minus size={15} />
+            </button>
+            {count}
+            <button
+              type="button"
+              disabled={count === 99}
+              onClick={handleIncrementCount}
+            >
+              <Plus size={15} />
+            </button>
+          </>
         </SelectQuantity>
         <Button title="Carrinho">
           <ShoppingCartSimple size={22} weight="fill" />

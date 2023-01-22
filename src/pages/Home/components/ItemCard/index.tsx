@@ -4,6 +4,8 @@ import { ItemCardContainer, SelectQuantity, Button } from './styles'
 
 import { Product } from '../..'
 import { useCount } from '../../../../hooks/useCount'
+import { useContext } from 'react'
+import { CartContext } from '../../../../contexts/CartContext'
 
 interface ItemCardProps {
   product: Product
@@ -16,7 +18,21 @@ export function formatPrice(price: number): string {
 }
 
 export function ItemCard({ product }: ItemCardProps) {
-  const [count, handleIncrementCount, handleDecrementCount] = useCount(1)
+  const { addProductToCart } = useContext(CartContext)
+
+  const [count, reset, handleIncrementCount, handleDecrementCount] = useCount(1)
+
+  function handleAddProduct(product: Product) {
+    const newProduct = {
+      id: product.id,
+      name: product.name,
+      image: product.image,
+      price: product.price,
+      count,
+    }
+    addProductToCart(newProduct)
+    reset()
+  }
 
   return (
     <ItemCardContainer>
@@ -54,7 +70,11 @@ export function ItemCard({ product }: ItemCardProps) {
             </button>
           </>
         </SelectQuantity>
-        <Button title="Carrinho">
+        <Button
+          type="button"
+          title="Carrinho"
+          onClick={() => handleAddProduct(product)}
+        >
           <ShoppingCartSimple size={22} weight="fill" />
         </Button>
       </div>

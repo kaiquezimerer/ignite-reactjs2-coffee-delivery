@@ -20,7 +20,8 @@ export function formatPrice(price: number): string {
 export function ItemCard({ product }: ItemCardProps) {
   const { addProductToCart } = useContext(CartContext)
 
-  const [count, reset, handleIncrementCount, handleDecrementCount] = useCount(1)
+  const { count, reset, handleIncrementCount, handleDecrementCount } =
+    useCount(1)
 
   function handleAddProduct(product: Product) {
     const newProduct = {

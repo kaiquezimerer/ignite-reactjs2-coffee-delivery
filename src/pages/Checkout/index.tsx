@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { Minus, Plus } from "phosphor-react"
 
 import { CheckoutForm } from "./components/CheckoutForm"
@@ -21,6 +21,7 @@ import CreditIcon from '../../assets/images/credit-icon.svg'
 import DebitIcon from '../../assets/images/debit-icon.svg'
 import CashIcon from '../../assets/images/cash-icon.svg'
 import { ProductItem } from "./components/ProductItem"
+import { CartContext } from "../../contexts/CartContext"
 
 enum PaymentMethod {
   'CREDIT_CARD' = 1,
@@ -35,6 +36,8 @@ const PAYMENT_METHOD = Object.freeze({
 })
 
 export function Checkout() {
+  const { cart } = useContext(CartContext)
+
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(null)
 
   function handleChangePaymentMethod(paymentMethod: PaymentMethod) {
@@ -88,22 +91,15 @@ export function Checkout() {
         <h2>Cafés selecionados</h2>
         <Card>
           <ol>
-            <ProductItem
-              product={
-                {
-                  image: 'images/coffee-expresso.png',
-                  name: 'Expresso Tradicional',
-                  price: 9.90
-                }
-              }
-            />
-            <ProductItem
-              product={{
-                image: 'images/coffee-latte.png',
-                name: 'Latte',
-                price: 9.90
-              }}
-            />
+            {
+              cart.map((product) => (
+                <ProductItem
+                  product={
+                    product
+                  }
+                />
+              ))
+            }
           </ol>
           <Summary>
             <div>

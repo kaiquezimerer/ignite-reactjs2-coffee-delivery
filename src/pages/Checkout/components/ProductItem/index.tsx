@@ -2,12 +2,12 @@ import { Minus, Plus } from 'phosphor-react'
 
 import { Product, DeleteButton } from '../../styles'
 
-import { useCount } from '../../../../hooks/useCount'
-
 import { SelectQuantity } from '../../../../pages/Home/components/ItemCard/styles'
-import { useEffect } from 'react'
+import { useContext } from 'react'
+import { CartContext } from '../../../../contexts/CartContext'
 
 type ProductType = {
+  id: string
   image: string
   name: string
   price: number
@@ -25,11 +25,22 @@ function formatToLacalePrice(price: number) {
 }
 
 export function ProductItem({ product }: ProductItemProps) {
-  const [count, handleIncrementCount, handleDecrementCount] = useCount(1)
+  const { cart, increaseQuantityInCart, decreaseQuantityInCart } =
+    useContext(CartContext)
+
+  function handleIncrement() {
+    increaseQuantityInCart(product.id)
+  }
+
+  function handleDecrement() {
+    decreaseQuantityInCart(product.id)
+  }
+
+  const count = cart.find((item) => item.id === product.id)?.count
 
   return (
-    <Product>
-      <img src={product.image} alt={product.name} />
+    <Product key={product.id}>
+      <img src={`images/${product.image}`} alt={product.name} />
       <div>
         <h3>{product.name}</h3>
         <div>
@@ -38,7 +49,7 @@ export function ProductItem({ product }: ProductItemProps) {
               <button
                 type="button"
                 disabled={count === 1}
-                onClick={handleDecrementCount}
+                onClick={handleDecrement}
               >
                 <Minus size={15} />
               </button>
@@ -46,7 +57,7 @@ export function ProductItem({ product }: ProductItemProps) {
               <button
                 type="button"
                 disabled={count === 99}
-                onClick={handleIncrementCount}
+                onClick={handleIncrement}
               >
                 <Plus size={15} />
               </button>

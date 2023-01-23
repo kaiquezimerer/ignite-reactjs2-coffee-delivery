@@ -1,8 +1,6 @@
 import { useCallback, useState } from 'react'
 
-type useCountType = [number, () => void, () => void, () => void]
-
-export function useCount(initialCount: number): useCountType {
+export function useCount(initialCount: number) {
   const [count, setCount] = useState<number>(initialCount)
 
   const handleIncrementCount = useCallback(() => {
@@ -17,5 +15,5 @@ export function useCount(initialCount: number): useCountType {
     setCount(initialCount)
   }, [initialCount])
 
-  return [count, reset, handleIncrementCount, handleDecrementCount]
+  return { count, reset, handleIncrementCount, handleDecrementCount }
 }

@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from 'react'
+import { createContext, ReactNode, useEffect, useState } from 'react'
 
 interface Product {
   id: string
@@ -25,6 +25,23 @@ export const CartContext = createContext({} as CartContextType)
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
   const [cart, setCart] = useState<Product[]>([])
+
+  useEffect(() => {
+    const storageStateAsJSON = localStorage.getItem(
+      '@ignite-reactjs2-coffee-delivery',
+    )
+
+    if (storageStateAsJSON) {
+      const parsedCart = JSON.parse(storageStateAsJSON)
+      setCart(parsedCart)
+    }
+  }, [])
+
+  useEffect(() => {
+    const stateJSON = JSON.stringify(cart)
+
+    localStorage.setItem('@ignite-reactjs2-coffee-delivery', stateJSON)
+  }, [cart])
 
   function addProductToCart(product: Product) {
     // Verifica se o item já está no carrinho, se sim, incrementa a quantidade no carrinho

@@ -13,6 +13,8 @@ interface CartContextType {
   addProductToCart: (product: Product) => void
   increaseQuantityInCart: (productId: string) => void
   decreaseQuantityInCart: (productId: string) => void
+  removeProductFromCart: (productId: string) => void
+  getTotalPrice: () => number
 }
 
 interface CartContextProviderProps {
@@ -66,6 +68,21 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     setCart(newCart)
   }
 
+  function removeProductFromCart(productId: string) {
+    const newCart = cart.filter((item) => item.id !== productId)
+
+    setCart(newCart)
+  }
+
+  function getTotalPrice() {
+    const totalPrice = cart.reduce(
+      (acc, product) => product.price * product.count + acc,
+      0,
+    )
+
+    return totalPrice
+  }
+
   return (
     <CartContext.Provider
       value={{
@@ -73,6 +90,8 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         addProductToCart,
         increaseQuantityInCart,
         decreaseQuantityInCart,
+        removeProductFromCart,
+        getTotalPrice,
       }}
     >
       {children}

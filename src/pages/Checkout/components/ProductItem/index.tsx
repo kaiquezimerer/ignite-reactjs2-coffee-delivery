@@ -1,10 +1,12 @@
+import { useContext } from 'react'
 import { Minus, Plus } from 'phosphor-react'
 
+import { formatToLocalePrice } from '../..'
 import { Product, DeleteButton } from '../../styles'
 
-import { SelectQuantity } from '../../../../pages/Home/components/ItemCard/styles'
-import { useContext } from 'react'
 import { CartContext } from '../../../../contexts/CartContext'
+
+import { SelectQuantity } from '../../../../pages/Home/components/ItemCard/styles'
 
 type ProductType = {
   id: string
@@ -17,16 +19,13 @@ interface ProductItemProps {
   product: ProductType
 }
 
-function formatToLacalePrice(price: number) {
-  return Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-  }).format(price)
-}
-
 export function ProductItem({ product }: ProductItemProps) {
-  const { cart, increaseQuantityInCart, decreaseQuantityInCart } =
-    useContext(CartContext)
+  const {
+    cart,
+    increaseQuantityInCart,
+    decreaseQuantityInCart,
+    removeProductFromCart,
+  } = useContext(CartContext)
 
   function handleIncrement() {
     increaseQuantityInCart(product.id)
@@ -34,6 +33,10 @@ export function ProductItem({ product }: ProductItemProps) {
 
   function handleDecrement() {
     decreaseQuantityInCart(product.id)
+  }
+
+  function handleRemoveProduct() {
+    removeProductFromCart(product.id)
   }
 
   const count = cart.find((item) => item.id === product.id)?.count
@@ -63,12 +66,12 @@ export function ProductItem({ product }: ProductItemProps) {
               </button>
             </>
           </SelectQuantity>
-          <DeleteButton>
+          <DeleteButton onClick={handleRemoveProduct}>
             <span>Remover</span>
           </DeleteButton>
         </div>
       </div>
-      <p>{formatToLacalePrice(count * product.price)}</p>
+      <p>{formatToLocalePrice(count * product.price)}</p>
     </Product>
   )
 }

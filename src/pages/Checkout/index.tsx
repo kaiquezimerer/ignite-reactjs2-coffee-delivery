@@ -35,14 +35,25 @@ const PAYMENT_METHOD = Object.freeze({
   'CASH': 3
 })
 
+export function formatToLocalePrice(price: number) {
+  return Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  }).format(price)
+}
+
 export function Checkout() {
-  const { cart } = useContext(CartContext)
+  const { cart, getTotalPrice, } = useContext(CartContext)
 
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(null)
 
   function handleChangePaymentMethod(paymentMethod: PaymentMethod) {
     setPaymentMethod(paymentMethod)
   }
+
+  const DELIVERY_COST = 3.5;
+  const totalProductPrice = getTotalPrice();
+  const totalPrice = totalProductPrice + DELIVERY_COST;
 
   return (
     <CheckoutContainer>
@@ -104,15 +115,15 @@ export function Checkout() {
           <Summary>
             <div>
               <p>Total de itens</p>
-              <p>R$ 29,70</p> 
+              <p>{formatToLocalePrice(totalProductPrice)}</p> 
             </div>
             <div>
               <p>Entrega</p>  
-              <p>R$ 3,50</p>
+              <p>{formatToLocalePrice(DELIVERY_COST)}</p>
             </div>
             <div>
               <p><span>Total</span></p>
-              <p><span>R$ 33,20</span></p>
+              <p><span>{formatToLocalePrice(totalPrice)}</span></p>
             </div>
           </Summary>
           <ConfirmButton type="button">

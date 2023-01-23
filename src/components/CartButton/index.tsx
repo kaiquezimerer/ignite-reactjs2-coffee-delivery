@@ -4,6 +4,7 @@ import { Badge, Button } from './styles'
 
 interface CartButtonProps {
   count: number
+  disabled?: boolean
 }
 
 export function CartButton({ count }: CartButtonProps) {

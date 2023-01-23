@@ -27,7 +27,7 @@ export const LocationLabel = styled.p`
   color: ${(props) => props.theme['purple-800']};
   background-color: ${(props) => props.theme['purple-100']};
   padding: 0.625rem 0.5rem;
-  border-radius: 6px;
+  border-radius: 0.375rem;
 
   /* Viewport <= 368px */
   @media screen and (max-width: 368px) {

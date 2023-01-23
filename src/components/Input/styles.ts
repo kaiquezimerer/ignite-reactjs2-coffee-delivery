@@ -27,7 +27,7 @@ export const InputElement = styled.input`
   outline: none;
   width: 100%;
   padding: 0.75rem;
-  border-radius: 4px;
+  border-radius: 0.25rem;
   border: 1px solid ${(props) => props.theme['gray-400']};
   background-color: ${(props) => props.theme['gray-300']};
   font-size: 0.875rem;

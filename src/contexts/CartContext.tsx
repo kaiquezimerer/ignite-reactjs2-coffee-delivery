@@ -76,7 +76,6 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
       (acc, product) => product.price * product.count + acc,
       0,
     )
-
     return totalPrice
   }
 

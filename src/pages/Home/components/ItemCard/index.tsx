@@ -1,10 +1,12 @@
+import { useContext } from 'react'
 import { Minus, Plus, ShoppingCartSimple } from 'phosphor-react'
 
 import { ItemCardContainer, SelectQuantity, Button } from './styles'
 
 import { Product } from '../..'
+
 import { useCount } from '../../../../hooks/useCount'
-import { useContext } from 'react'
+
 import { CartContext } from '../../../../contexts/CartContext'
 
 interface ItemCardProps {

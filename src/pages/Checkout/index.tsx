@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react'
 
-import { CheckoutForm } from "./components/CheckoutForm"
+import { ProductItem } from './components/ProductItem'
+import { CheckoutForm } from './components/CheckoutForm'
 
 import {
   CheckoutContainer,
@@ -13,18 +14,12 @@ import {
   ConfirmButton
 } from './styles'
 
+import { CartContext } from "../../contexts/CartContext"
+
 import PaymentIcon from '../../assets/images/payment-icon.svg'
 import CreditIcon from '../../assets/images/credit-icon.svg'
 import DebitIcon from '../../assets/images/debit-icon.svg'
 import CashIcon from '../../assets/images/cash-icon.svg'
-import { ProductItem } from "./components/ProductItem"
-import { CartContext } from "../../contexts/CartContext"
-
-enum PaymentMethod {
-  'CREDIT_CARD' = 1,
-  'DEBIT_CARD'=  2,
-  'CASH' = 3
-}
 
 export interface CheckoutFormType {
   cep: string
@@ -34,6 +29,12 @@ export interface CheckoutFormType {
   bairro: string
   cidade: string
   uf: string
+}
+
+enum PaymentMethod {
+  'CREDIT_CARD' = 1,
+  'DEBIT_CARD'=  2,
+  'CASH' = 3
 }
 
 const PAYMENT_METHOD = Object.freeze({
@@ -52,7 +53,7 @@ export function formatToLocalePrice(price: number) {
 export function Checkout() {
   const { cart, getTotalPrice, } = useContext(CartContext)
 
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<CheckoutFormType>({
     cep: '',
     rua: '',
     numero: 0,
@@ -144,9 +145,7 @@ export function Checkout() {
             {
               cart.map((product) => (
                 <ProductItem
-                  product={
-                    product
-                  }
+                  product={product}
                 />
               ))
             }

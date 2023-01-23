@@ -8,7 +8,7 @@ export const Button = styled.button`
   border: 0;
   width: 42px;
   height: 42px;
-  border-radius: 6px;
+  border-radius: 0.375rem;
   background-color: ${(props) => props.theme['yellow-100']};
   color: ${(props) => props.theme['yellow-800']};
   cursor: pointer;

@@ -12,8 +12,14 @@ interface CartState {
   cart: Product[]
 }
 
-export function cartReducer(state: CartState, action: any) {
+interface Action {
+  type: ActionTypes
+  payload: any
+}
+
+export function cartReducer(state: CartState, action: Action) {
   switch (action.type) {
+    // Adicionar novo produto no carrinho
     case ActionTypes.ADD_PRODUCT_TO_CART: {
       // Verifica se o item já está no carrinho, se sim, incrementa a quantidade no carrinho
       const findItem = state.cart.find(
@@ -32,6 +38,7 @@ export function cartReducer(state: CartState, action: any) {
         return { ...state, cart: [...state.cart, action.payload.product] }
       }
     }
+    // Aumentar (+1) quantidade de um produto no carrinho
     case ActionTypes.INCREASE_QUANTITY_IN_CART: {
       const newCart = state.cart.map((item) => {
         if (action.payload.productId === item.id) {
@@ -42,6 +49,7 @@ export function cartReducer(state: CartState, action: any) {
 
       return { ...state, cart: newCart }
     }
+    // Diminuir (-1) quantidade de um produto no carrinho
     case ActionTypes.DECREASE_QUANTITY_IN_CART: {
       const newCart = state.cart.map((item) => {
         if (action.payload.productId === item.id) {
@@ -52,6 +60,7 @@ export function cartReducer(state: CartState, action: any) {
 
       return { ...state, cart: newCart }
     }
+    // Remover um produto do carrinho
     case ActionTypes.REMOVE_PRODUCT_FROM_CART: {
       const newCart = state.cart.filter(
         (item) => item.id !== action.payload.productId,

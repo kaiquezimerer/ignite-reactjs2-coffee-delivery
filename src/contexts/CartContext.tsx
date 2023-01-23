@@ -1,4 +1,12 @@
-import { createContext, ReactNode, useEffect, useState } from 'react'
+import { createContext, ReactNode, useEffect, useReducer } from 'react'
+
+import {
+  addProductToCartAction,
+  increaseQuantityInCartAction,
+  decreaseQuantityInCartAction,
+  removeProductFromCartAction,
+} from '../reducers/cart/actions'
+import { cartReducer } from '../reducers/cart/reducer'
 
 interface Product {
   id: string
@@ -24,73 +32,47 @@ interface CartContextProviderProps {
 export const CartContext = createContext({} as CartContextType)
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
-  const [cart, setCart] = useState<Product[]>([])
+  const [state, dispatch] = useReducer(
+    cartReducer,
+    {
+      cart: [],
+    },
+    () => {
+      const storageStateAsJSON = localStorage.getItem(
+        '@ignite-reactjs2-coffee-delivery',
+      )
+
+      if (storageStateAsJSON) {
+        const parsedCart = JSON.parse(storageStateAsJSON)
+        return parsedCart
+      }
+    },
+  )
 
   useEffect(() => {
-    const storageStateAsJSON = localStorage.getItem(
-      '@ignite-reactjs2-coffee-delivery',
-    )
-
-    if (storageStateAsJSON) {
-      const parsedCart = JSON.parse(storageStateAsJSON)
-      setCart(parsedCart)
-    }
-  }, [])
-
-  useEffect(() => {
-    const stateJSON = JSON.stringify(cart)
+    const stateJSON = JSON.stringify(state)
 
     localStorage.setItem('@ignite-reactjs2-coffee-delivery', stateJSON)
-  }, [cart])
+  }, [state])
 
   function addProductToCart(product: Product) {
-    // Verifica se o item já está no carrinho, se sim, incrementa a quantidade no carrinho
-    const findItem = cart.find((item) => item.id === product.id)
-
-    if (findItem) {
-      const newCart = cart.map((item) => {
-        if (product.id === item.id) {
-          return { ...item, count: item.count + product.count }
-        }
-        return item
-      })
-
-      setCart(newCart)
-    } else {
-      setCart((state) => [...state, product])
-    }
+    dispatch(addProductToCartAction(product))
   }
 
   function increaseQuantityInCart(productId: string) {
-    const newCart = cart.map((item) => {
-      if (productId === item.id) {
-        return { ...item, count: item.count + 1 }
-      }
-      return item
-    })
-
-    setCart(newCart)
+    dispatch(increaseQuantityInCartAction(productId))
   }
 
   function decreaseQuantityInCart(productId: string) {
-    const newCart = cart.map((item) => {
-      if (productId === item.id) {
-        return { ...item, count: item.count - 1 }
-      }
-      return item
-    })
-
-    setCart(newCart)
+    dispatch(decreaseQuantityInCartAction(productId))
   }
 
   function removeProductFromCart(productId: string) {
-    const newCart = cart.filter((item) => item.id !== productId)
-
-    setCart(newCart)
+    dispatch(removeProductFromCartAction(productId))
   }
 
   function getTotalPrice() {
-    const totalPrice = cart.reduce(
+    const totalPrice = state.cart.reduce(
       (acc, product) => product.price * product.count + acc,
       0,
     )
@@ -101,7 +83,7 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
   return (
     <CartContext.Provider
       value={{
-        cart,
+        cart: state.cart,
         addProductToCart,
         increaseQuantityInCart,
         decreaseQuantityInCart,

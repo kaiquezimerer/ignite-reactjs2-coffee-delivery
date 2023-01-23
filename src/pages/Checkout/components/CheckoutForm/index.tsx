@@ -1,10 +1,17 @@
+import { CheckoutFormType } from '../..'
+
 import { Card, CardHeader } from '../../styles'
 
 import { Input } from '../../../../components/Input'
 
 import AddressIcon from '../../../../assets/images/address-icon.svg'
 
-export function CheckoutForm() {
+interface CheckoutFormProps {
+  form: CheckoutFormType
+  handleChangeForm: (field: string, value: string | number) => void
+}
+
+export function CheckoutForm({ form, handleChangeForm }: CheckoutFormProps) {
   return (
     <Card>
       <CardHeader icon={AddressIcon}>
@@ -17,10 +24,19 @@ export function CheckoutForm() {
           width="200px"
           type="text"
           name="cep"
-          mask="99999-999"
+          maxLength={8}
           placeholder="CEP"
+          value={form.cep}
+          onChange={(e) => handleChangeForm('cep', e.target.value)}
         />
-        <Input required type="text" name="rua" placeholder="Rua" />
+        <Input
+          required
+          type="text"
+          name="rua"
+          placeholder="Rua"
+          value={form.rua}
+          onChange={(e) => handleChangeForm('rua', e.target.value)}
+        />
         <Input
           required
           width="200px"
@@ -28,6 +44,8 @@ export function CheckoutForm() {
           min="1"
           name="numero"
           placeholder="Número"
+          value={form.numero}
+          onChange={(e) => handleChangeForm('numero', e.target.value)}
         />
         <Input
           type="text"
@@ -35,6 +53,8 @@ export function CheckoutForm() {
           name="complemento"
           maxLength={20}
           placeholder="Complemento"
+          value={form.complemento}
+          onChange={(e) => handleChangeForm('complemento', e.target.value)}
         />
         <Input
           required
@@ -43,6 +63,8 @@ export function CheckoutForm() {
           name="bairro"
           maxLength={50}
           placeholder="Bairro"
+          value={form.bairro}
+          onChange={(e) => handleChangeForm('bairro', e.target.value)}
         />
         <Input
           required
@@ -51,6 +73,8 @@ export function CheckoutForm() {
           name="cidade"
           maxLength={50}
           placeholder="Cidade"
+          value={form.cidade}
+          onChange={(e) => handleChangeForm('cidade', e.target.value)}
         />
         <Input
           required
@@ -59,6 +83,8 @@ export function CheckoutForm() {
           name="uf"
           maxLength={2}
           placeholder="UF"
+          value={form.uf}
+          onChange={(e) => handleChangeForm('uf', e.target.value)}
         />
       </form>
     </Card>

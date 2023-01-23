@@ -1,5 +1,4 @@
 import { useContext, useState } from 'react'
-import { Minus, Plus } from "phosphor-react"
 
 import { CheckoutForm } from "./components/CheckoutForm"
 
@@ -10,9 +9,7 @@ import {
   PaymentOptionButton,
   PaymentOptionContainer,
   SelectedProductContainer,
-  Product,
   Summary,
-  DeleteButton,
   ConfirmButton
 } from './styles'
 
@@ -27,6 +24,16 @@ enum PaymentMethod {
   'CREDIT_CARD' = 1,
   'DEBIT_CARD'=  2,
   'CASH' = 3
+}
+
+export interface CheckoutFormType {
+  cep: string
+  rua: string
+  numero: number
+  complemento: string
+  bairro: string
+  cidade: string
+  uf: string
 }
 
 const PAYMENT_METHOD = Object.freeze({
@@ -45,7 +52,24 @@ export function formatToLocalePrice(price: number) {
 export function Checkout() {
   const { cart, getTotalPrice, } = useContext(CartContext)
 
+  const [form, setForm] = useState({
+    cep: '',
+    rua: '',
+    numero: 0,
+    complemento: '',
+    bairro: '',
+    cidade: '',
+    uf: '',
+  })
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(null)
+
+  function handleChangeForm(field: string, value: string | number) {
+    setForm((state) => ({ ...state, [field]: value }))
+  }
+
+  function handleSubmit() {
+    console.log(form, paymentMethod)
+  }
 
   function handleChangePaymentMethod(paymentMethod: PaymentMethod) {
     setPaymentMethod(paymentMethod)
@@ -59,7 +83,7 @@ export function Checkout() {
     <CheckoutContainer>
       <div>
         <h2>Complete seu pedido</h2>
-        <CheckoutForm />
+        <CheckoutForm form={form} handleChangeForm={handleChangeForm}/>
         <Card>
           <CardHeader icon={PaymentIcon}>
             <h3>Pagamento</h3>
@@ -126,7 +150,7 @@ export function Checkout() {
               <p><span>{formatToLocalePrice(totalPrice)}</span></p>
             </div>
           </Summary>
-          <ConfirmButton type="button">
+          <ConfirmButton type="button" onClick={handleSubmit}>
             Confirmar pedido
           </ConfirmButton>
         </Card>

@@ -26,8 +26,6 @@ export const CartContext = createContext({} as CartContextType)
 export function CartContextProvider({ children }: CartContextProviderProps) {
   const [cart, setCart] = useState<Product[]>([])
 
-  console.log(cart)
-
   function addProductToCart(product: Product) {
     // Verifica se o item já está no carrinho, se sim, incrementa a quantidade no carrinho
     const findItem = cart.find((item) => item.id === product.id)

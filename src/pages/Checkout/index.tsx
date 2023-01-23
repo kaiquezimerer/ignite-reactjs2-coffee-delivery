@@ -79,6 +79,21 @@ export function Checkout() {
   const totalProductPrice = getTotalPrice();
   const totalPrice = totalProductPrice + DELIVERY_COST;
 
+  function isChackoutFormValidate() {
+    if (!cart.length) return false
+
+    if (form.cep === '') return false;
+    if (form.rua === '') return false;
+    if (form.numero <= 0) return false;
+    if (form.bairro === '') return false;
+    if (form.cidade === '') return false;
+    if (form.uf === '') return false;
+
+    if (!paymentMethod) return false
+
+    return true
+  }
+
   return (
     <CheckoutContainer>
       <div>
@@ -150,7 +165,11 @@ export function Checkout() {
               <p><span>{formatToLocalePrice(totalPrice)}</span></p>
             </div>
           </Summary>
-          <ConfirmButton type="button" onClick={handleSubmit}>
+          <ConfirmButton 
+            type="button" 
+            disabled={!isChackoutFormValidate()} 
+            onClick={handleSubmit}
+          >
             Confirmar pedido
           </ConfirmButton>
         </Card>

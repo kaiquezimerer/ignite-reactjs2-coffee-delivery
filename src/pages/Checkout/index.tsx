@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { ProductItem } from './components/ProductItem'
 import { CheckoutForm } from './components/CheckoutForm'
@@ -51,7 +52,7 @@ export function formatToLocalePrice(price: number) {
 }
 
 export function Checkout() {
-  const { cart, getTotalPrice, } = useContext(CartContext)
+  const { cart, getTotalPrice, resetCart } = useContext(CartContext)
 
   const [form, setForm] = useState<CheckoutFormType>({
     cep: '',
@@ -64,12 +65,21 @@ export function Checkout() {
   })
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(null)
 
+  const navigate = useNavigate();
+
   function handleChangeForm(field: string, value: string | number) {
     setForm((state) => ({ ...state, [field]: value }))
   }
 
   function handleSubmit() {
-    console.log(form, paymentMethod)
+    resetCart();
+
+    navigate('/success', {
+      state: {
+        form,
+        paymentMethod
+      }
+    })
   }
 
   function handleChangePaymentMethod(paymentMethod: PaymentMethod) {
@@ -133,7 +143,7 @@ export function Checkout() {
                 handleChangePaymentMethod(PAYMENT_METHOD.CASH)
               }} 
             >
-              Cartão de dinheiro
+              Dinheiro
             </PaymentOptionButton>
           </PaymentOptionContainer>
         </Card>

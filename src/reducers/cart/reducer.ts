@@ -68,6 +68,9 @@ export function cartReducer(state: CartState, action: Action) {
 
       return { ...state, cart: newCart }
     }
+    case ActionTypes.RESET_CART: {
+      return { cart: [] }
+    }
     default: {
       return state
     }

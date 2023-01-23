@@ -5,6 +5,7 @@ import {
   increaseQuantityInCartAction,
   decreaseQuantityInCartAction,
   removeProductFromCartAction,
+  resetCartAction,
 } from '../reducers/cart/actions'
 import { cartReducer } from '../reducers/cart/reducer'
 
@@ -23,6 +24,7 @@ interface CartContextType {
   decreaseQuantityInCart: (productId: string) => void
   removeProductFromCart: (productId: string) => void
   getTotalPrice: () => number
+  resetCart: () => void
 }
 
 interface CartContextProviderProps {
@@ -46,6 +48,8 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         const parsedCart = JSON.parse(storageStateAsJSON)
         return parsedCart
       }
+
+      return { cart: [] }
     },
   )
 
@@ -71,6 +75,10 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     dispatch(removeProductFromCartAction(productId))
   }
 
+  function resetCart() {
+    dispatch(resetCartAction())
+  }
+
   function getTotalPrice() {
     const totalPrice = state.cart.reduce(
       (acc, product) => product.price * product.count + acc,
@@ -88,6 +96,7 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         decreaseQuantityInCart,
         removeProductFromCart,
         getTotalPrice,
+        resetCart,
       }}
     >
       {children}
